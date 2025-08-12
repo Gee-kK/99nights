@@ -1,3 +1,4 @@
+local TextChatService = game:GetService("TextChatService")
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 
@@ -8,3 +9,16 @@ local function loadMap()
 	end
 end
 
+
+TextChatService.SendingMessage:Connect(function(ChatMessage)
+	local msg = ChatMessage.Text
+	if msg == "load map" then
+		loadMap()
+	end
+end)
+
+local SVersion = 1
+game:GetService("StarterGui"):SetCore("SendNotification",{
+	Title = "99 Nights Script Loaded", -- Required
+	Text = "Version: ".. SVersion -- Required
+})
