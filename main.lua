@@ -5,7 +5,7 @@ local LocalPlayer = Players.LocalPlayer
 local function loadMap()
 	for _, fog in game.Workspace.Map.Boundaries:GetChildren() do
 		if not fog:IsA("BasePart") then continue end
-		LocalPlayer.Character.HumanoidRootPart.CFrame = fog.CFrame + Vector3(0, 10, 0)
+		LocalPlayer.Character.HumanoidRootPart.CFrame = fog.CFrame
 	end
 end
 
@@ -17,7 +17,7 @@ TextChatService.SendingMessage:Connect(function(ChatMessage)
 	end
 end)
 
-local SVersion = 1
+local SVersion = 2
 game:GetService("StarterGui"):SetCore("SendNotification",{
 	Title = "99 Nights Script Loaded", -- Required
 	Text = "Version: ".. SVersion -- Required
