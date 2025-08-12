@@ -13,15 +13,23 @@ local function loadMap()
 	end
 end
 
+local function bringAll()
+	for _, item : Model in game.Workspace.Items:GetChildren() do
+		item:MoveTo(LocalPlayer.Character.HumanoidRootPart.Position + Vector3(0, 0, 5))
+	end
+end
+
 
 TextChatService.SendingMessage:Connect(function(ChatMessage)
 	local msg = ChatMessage.Text
 	if msg == "load map" then
 		loadMap()
+	elseif msg == "bring all" then
+		bringAll()
 	end
 end)
 
-local SVersion = 3
+local SVersion = 4
 game:GetService("StarterGui"):SetCore("SendNotification",{
 	Title = "99 Nights Script Loaded", -- Required
 	Text = "Version: ".. SVersion -- Required
