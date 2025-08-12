@@ -15,7 +15,7 @@ end
 
 local function bringAll()
 	for _, item : Model in game.Workspace.Items:GetChildren() do
-		item:MoveTo(LocalPlayer.Character.HumanoidRootPart.Position + Vector3(0, 0, 5))
+		item:MoveTo(LocalPlayer.Character.HumanoidRootPart.Position + Vector3.new(0, 0, 5))
 	end
 end
 
@@ -29,7 +29,7 @@ TextChatService.SendingMessage:Connect(function(ChatMessage)
 	end
 end)
 
-local SVersion = 4
+local SVersion = 5
 game:GetService("StarterGui"):SetCore("SendNotification",{
 	Title = "99 Nights Script Loaded", -- Required
 	Text = "Version: ".. SVersion -- Required
