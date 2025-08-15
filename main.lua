@@ -30,7 +30,8 @@ local function store(item)
 		LocalPlayer.Character.HumanoidRootPart.CFrame = part.CFrame + Vector3.new(0, 1, 0)
 		task.wait(.25)
 		ReplicatedStorage.RemoteEvents.RequestBagStoreItem:InvokeServer(sack, item)
-		task.wait(.25)
+		task.wait(.3)
+		
 	end
 end
 
@@ -53,7 +54,7 @@ end
 local function bringAll()
 	local originalPos = LocalPlayer.Character.HumanoidRootPart.CFrame
 	for _, item : Model in game.Workspace.Items:GetChildren() do
-		if item.Name == "Item Chest" then continue end
+		if string.find(item.Name, "Chest") then continue end
 		if isSackFull() then
 			LocalPlayer.Character.HumanoidRootPart.CFrame = originalPos
 			task.wait(.75)
@@ -86,16 +87,25 @@ local function bring(item: string)
 	end
 end
 
+local function test()
+	local item = game.Workspace.Items.Carrot
+	LocalPlayer.Character.HumanoidRootPart.CFrame = item.BasePart.CFrame + Vector3.new(0, 1, 0)
+	task.wait(.4)
+	print(ReplicatedStorage.RemoteEvents.RequestBagStoreItem:InvokeServer(sack, item))
+end
+
 TextChatService.SendingMessage:Connect(function(ChatMessage)
 	local msg = ChatMessage.Text
 	if msg == "load map" then
 		loadMap()
 	elseif msg == "bring all" then
 		bringAll()
+	elseif msg == "test" then
+		test()
 	end
 end)
 
-local SVersion = 7
+local SVersion = 8
 game:GetService("StarterGui"):SetCore("SendNotification",{
 	Title = "99 Nights Script Loaded", -- Required
 	Text = "Version: ".. SVersion -- Required
