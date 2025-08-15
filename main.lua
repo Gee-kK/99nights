@@ -56,11 +56,12 @@ local function bringAll()
 		if item.Name == "Item Chest" then continue end
 		if isSackFull() then
 			LocalPlayer.Character.HumanoidRootPart.CFrame = originalPos
-			task.wait(.1)
+			task.wait(.75)
 			for _, c in LocalPlayer.ItemBag:GetChildren() do
 				ReplicatedStorage.RemoteEvents.RequestBagDropItem:FireServer(sack, c)
 				task.wait(.25)
 			end
+			task.wait(.75)
 		end
 		store(item)
 		task.wait(1)
@@ -94,7 +95,7 @@ TextChatService.SendingMessage:Connect(function(ChatMessage)
 	end
 end)
 
-local SVersion = 6
+local SVersion = 7
 game:GetService("StarterGui"):SetCore("SendNotification",{
 	Title = "99 Nights Script Loaded", -- Required
 	Text = "Version: ".. SVersion -- Required
