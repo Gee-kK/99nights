@@ -29,7 +29,10 @@ local function store(item)
 	if part then
 		LocalPlayer.Character.HumanoidRootPart.CFrame = part.CFrame + Vector3.new(0, 1, 0)
 		task.wait(.25)
-		print(ReplicatedStorage.RemoteEvents.RequestBagStoreItem:InvokeServer(sack, item))
+		local res = ReplicatedStorage.RemoteEvents.RequestBagStoreItem:InvokeServer(sack, item)
+		for _, d in res do
+			print(d)
+		end
 		task.wait(.3)
 		
 	end
@@ -96,7 +99,7 @@ TextChatService.SendingMessage:Connect(function(ChatMessage)
 	end
 end)
 
-local SVersion = 9
+local SVersion = 10
 game:GetService("StarterGui"):SetCore("SendNotification",{
 	Title = "99 Nights Script Loaded", -- Required
 	Text = "Version: ".. SVersion -- Required
