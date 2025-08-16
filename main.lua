@@ -3,6 +3,56 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 
+local bagable = {
+	Carrot = true,
+	Corn = true,
+	Pumpkin = true,
+	Berry = true,
+	Apple = true,
+	Morsel = true,
+	Steak = true,
+	Ribs = true,
+	["Cooked Morsel"] = true,
+	["Cooked Steak"] = true,
+	["Cooked Ribs"] = true,
+	Cake = true,
+	Chili = true,
+	["Meat? Sandwich"] = true,
+	["Chili Seeds"] = true,
+	["Flower Seeds"] = true,
+	["Berry Seeds"] = true,
+	["Firefly Seeds"] = true,
+	Log = true,
+	Chair = true,
+	Biofuel = true,
+	Coal = true,
+	["Fuel Canister"] = true,
+	["Oil Barrel"] = true,
+	Bolt = true,
+	["Sheet Metal"] = true,
+	["UFO Junk"] = true,
+	["UFO Component"] = true,
+	["Broken Fan"] = true,
+	["Broken Radio"] = true,
+	["Broken Microwave"] = true,
+	Tyre = true,
+	["Metal Chair"] = true,
+	["Old Car Engine"] = true,
+	["Washing Machine"] = true,
+	["Cultist Experiment"] = true,
+	["Cultist Prototype"] = true,
+	["UFO Scrap"] = true,
+	["Bunny Foot"] = true,
+	["Wolf Pelt"] = true,
+	["Alpha Wolf Pelt"] = true,
+	["Bear Pelt"] = true,
+	["Arctic Fox Pelt"] = true,
+	["Polar Bear Pelt"] = true,
+	Feather = true,
+	["Cultist Gem"] = true
+}
+
+
 local sack = nil
 local function findSack()
 	for _, item in pairs(LocalPlayer.Inventory:GetChildren()) do
@@ -18,7 +68,7 @@ sack = findSack()
 
 local function isSackFull()
 	if not sack then return true end
-	local amount = sack:GetAttribute("NumberItems")
+	local amount = #LocalPlayer.ItemBag:GetChildren()
 	local capacity = sack:GetAttribute("Capacity")
 	return amount ~= nil and capacity ~= nil and amount >= capacity	
 end
@@ -57,7 +107,7 @@ end
 local function bringAll()
 	local originalPos = LocalPlayer.Character.HumanoidRootPart.CFrame
 	for _, item : Model in game.Workspace.Items:GetChildren() do
-		if string.find(item.Name, "Chest") then continue end
+		if not bagable[item.Name] then continue end
 		if isSackFull() then
 			LocalPlayer.Character.HumanoidRootPart.CFrame = originalPos
 			task.wait(.75)
@@ -99,7 +149,7 @@ TextChatService.SendingMessage:Connect(function(ChatMessage)
 	end
 end)
 
-local SVersion = 10
+local SVersion = 11
 game:GetService("StarterGui"):SetCore("SendNotification",{
 	Title = "99 Nights Script Loaded", -- Required
 	Text = "Version: ".. SVersion -- Required
